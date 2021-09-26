@@ -10,16 +10,16 @@ object SendAndForgetMessageProducer extends App {
   val producerConfig = KafkaProducerConfig("/Users/anujmehra/git/kafka-producer/src/main/resources/application.conf")
   println(producerConfig.bootstrapServers)
 
-  val properties = new Properties
-  properties.put(KafkaConnectionContants.BootstrapServers, producerConfig.bootstrapServers)
-  properties.put(KafkaConnectionContants.KeyDeserializer, producerConfig.jsonMsgKeySerializer)
-  properties.put(KafkaConnectionContants.ValueDeserializer, producerConfig.jsonMsgValueSerializer)
+  val kafkaProps = new Properties
+  kafkaProps.put(KafkaConnectionContants.BootstrapServers, producerConfig.bootstrapServers)
+  kafkaProps.put(KafkaConnectionContants.KeySerializer, producerConfig.jsonMsgKeySerializer)
+  kafkaProps.put(KafkaConnectionContants.ValueSerializer, producerConfig.jsonMsgValueSerializer)
 
   val topicName = producerConfig.jsonMsgTopicName
-  val kafkaProducer = new KafkaProducer[String,String](properties)
+  val kafkaProducer = new KafkaProducer[String,String](kafkaProps)
 
-  val producer = new SendAndForgetMessageProducer
-  producer.produceMessages(kafkaProducer, topicName)
+  val sendAndForgetMessageProducer = new SendAndForgetMessageProducer
+  sendAndForgetMessageProducer.produceMessages(kafkaProducer, topicName)
 }
 
 class SendAndForgetMessageProducer {
@@ -29,9 +29,9 @@ class SendAndForgetMessageProducer {
 
     println("-----method entry: produceMessages----")
 
-    val record: ProducerRecord[String, String] = new ProducerRecord[String,String](topicName, "key1", "value1")
+    val record: ProducerRecord[String, String] = new ProducerRecord[String,String](topicName, "key2", "value2")
     kafkaProducer.send(record)
-
+    kafkaProducer.flush()
     println("-----method exit: produceMessages----")
   }
 }

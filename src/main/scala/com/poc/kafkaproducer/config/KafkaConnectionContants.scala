@@ -6,6 +6,6 @@ object KafkaConnectionContants extends Enumeration {
 
   // Assigning values
   val BootstrapServers = Value("bootstrap.servers").toString
-  val KeyDeserializer = Value("key.deserializer").toString
-  val ValueDeserializer = Value("value.deserializer").toString
+  val KeySerializer = Value("key.serializer").toString
+  val ValueSerializer = Value("value.serializer").toString
 }
