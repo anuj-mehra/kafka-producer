@@ -1,9 +1,10 @@
 package com.poc.kafkaproducer.sendNforget
 
 import com.poc.kafkaproducer.config.{KafkaConnectionContants, KafkaProducerConfig}
-import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
+import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord, RecordMetadata}
 
 import java.util.Properties
+import java.util.concurrent.Future
 
 object SendAndForgetMessageProducer extends App {
 
@@ -20,6 +21,7 @@ object SendAndForgetMessageProducer extends App {
 
   val sendAndForgetMessageProducer = new SendAndForgetMessageProducer
   sendAndForgetMessageProducer.produceMessages(kafkaProducer, topicName)
+
 }
 
 class SendAndForgetMessageProducer {
@@ -29,9 +31,15 @@ class SendAndForgetMessageProducer {
 
     println("-----method entry: produceMessages----")
 
-    val record: ProducerRecord[String, String] = new ProducerRecord[String,String](topicName, "key2", "value2")
-    kafkaProducer.send(record)
+    val record: ProducerRecord[String, String] = new ProducerRecord[String,String](topicName, "key2", "{f1:value2}")
+    val futureResp: Future[RecordMetadata] = kafkaProducer.send(record)
     kafkaProducer.flush()
     println("-----method exit: produceMessages----")
+    kafkaProducer.close()
+
+    /*val recordMetadata: RecordMetadata = futureResp.get()
+    println("offset ---> " + recordMetadata.offset())
+    println("partition ---> " + recordMetadata.partition())
+    println("topic ---> " + recordMetadata.topic())*/
   }
 }

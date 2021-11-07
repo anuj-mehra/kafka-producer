@@ -8,4 +8,8 @@ object KafkaConnectionContants extends Enumeration {
   val BootstrapServers = Value("bootstrap.servers").toString
   val KeySerializer = Value("key.serializer").toString
   val ValueSerializer = Value("value.serializer").toString
+  val Acknowledgement = Value("acks").toString
+  val BufferMemory = Value("buffer.memory").toString
+  val BatchSize = Value("batch.size").toString
+  val LingerMs = Value("linger.ms").toString
 }
