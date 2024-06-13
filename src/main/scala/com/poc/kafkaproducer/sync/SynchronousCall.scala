@@ -24,12 +24,12 @@ object SynchronousCall extends App with Serializable{
   val kafkaProducer = new KafkaProducer[String,String](kafkaProps)
 
   val obj = new SynchronousCall
-  obj.producerMessages(kafkaProducer, topicName)
+  obj.produceMessages(kafkaProducer, topicName)
 }
 
 class SynchronousCall extends Serializable {
 
-  def producerMessages: (KafkaProducer[String,String], String) => Unit
+  def produceMessages: (KafkaProducer[String,String], String) => Unit
   = (kafkaProducer: KafkaProducer[String,String], topicName: String) => {
 
     try{

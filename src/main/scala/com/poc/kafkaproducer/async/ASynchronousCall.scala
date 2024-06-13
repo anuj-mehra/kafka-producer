@@ -15,6 +15,14 @@ object ASynchronousCall extends App{
   kafkaProps.put(KafkaConnectionContants.BootstrapServers, producerConfig.bootstrapServers)
   kafkaProps.put(KafkaConnectionContants.KeySerializer, producerConfig.jsonMsgKeySerializer)
   kafkaProps.put(KafkaConnectionContants.ValueSerializer, producerConfig.jsonMsgValueSerializer)
+
+  /* acks=0 ==> With a value of 0, the producer won’t even wait for a response from the broker.
+     It immediately considers the write successful the moment the record is sent out.*/
+  /* acks=1 ==> With a setting of 1, the producer will consider the write successful when the
+     leader receives the record. The leader broker will know to immediately respond the moment
+     it receives the record and not wait any longer.
+   */
+  // acks=all ==> When set to all, the producer will consider the write successful when all of the in-sync replicas receive the record.
   kafkaProps.put(KafkaConnectionContants.Acknowledgement,"all")
 
   //The total bytes of memory the producer can use to buffer records waiting to be sent to the server.

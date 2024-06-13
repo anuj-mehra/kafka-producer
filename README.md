@@ -37,7 +37,8 @@ https://docs.confluent.io/platform/current/schema-registry/serdes-develop/index.
 
 
 
-##Important topics;
+## Important topics;
+
 1. Send And Forget
 2. Sync API
 3. ASync API
@@ -48,3 +49,8 @@ https://docs.confluent.io/platform/current/schema-registry/serdes-develop/index.
 8. At-most once vs at-least once vs exactly once
 
 
+## Helpful URL's
+
+https://betterprogramming.pub/thorough-introduction-to-apache-kafka-6fbf2989bbc1
+
+https://betterprogramming.pub/kafka-acks-explained-c0515b3b707e
